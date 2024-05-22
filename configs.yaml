@@ -1,0 +1,126 @@
+# Paths
+sources: # Video locations
+  - path/to/video1.mp4
+  - path/to/video2.mp4
+  - path/to/video3.mp4
+emotion_model: models/miniXception_emotion.onnx
+gender_model: models/miniXception_gender.onnx
+person_det: models/yolov8m-seg-retrain.pt
+face_det: models/yolov8n-face.pt
+posture_model: models/yolov8x-cls-posture-224.pt
+reid_model: models/youtu_reid_baseline_large.onnx
+output_location: output/runs
+
+# Tracker configs
+tracker_configs:
+  alpha_fixed_emb: 0.9217945107294758
+  asso_func: giou # iou/diou/ciou/giou/ct_dist
+  aw_off: false
+  aw_param: 1.25
+  cmc_off: false
+  delta_t: 3
+  det_thresh: 0.25
+  reid_thresh: 0.5
+  embedding_off: false
+  inertia: 0.11282583500843651
+  # iou_thresh: 0.21251708690170096
+  iou_thresh: 0.1
+  max_age: 10000000
+  min_hits: 4
+  w_association_emb: 0.75
+  fp16: false
+
+# Person segmentor configs
+person_seg_configs:
+  classes: 0
+  retina_masks: true
+  verbose: 
+  conf: 0.1
+  imgsz: 960
+
+# Face detector configs
+face_det_configs:
+  conf: 0.5
+  imgsz: 800
+  verbose:
+
+# Hardware
+onnx_providers:
+  - CUDAExecutionProvider
+  - CPUExecutionProvider
+
+# Labels
+gender_labels:
+  - woman
+  - man
+emotion_labels:
+  - angry
+  - disgust
+  - fear
+  - happy
+  - sad
+  - surprise
+  - neutral
+posture_labels:
+  - lying
+  - sit
+  - stand
+
+# Output folder names
+sub_folders:
+  - mapping
+  - tabular
+  - videos
+
+# Output data format
+header:
+  - camera_id
+  - frame
+  - local_id
+  - x1
+  - y1
+  - x2
+  - y2
+  - conf
+  - emotion
+  - gender
+  - posture
+  - global_id
+
+# Emotion box color
+emotion_color:
+  angry: # red
+    - 0
+    - 0
+    - 255  
+  disgust: # muted green
+    - 91
+    - 175
+    - 160  
+  fear: # dark blue
+    - 128
+    - 0
+    - 0  
+  happy: # yellow
+    - 0
+    - 255
+    - 255  
+  sad: # pale blue
+    - 250
+    - 206
+    - 135  
+  surprise: # electric blue
+    - 255
+    - 191
+    - 0  
+  neutral: # light gray
+    - 192
+    - 192
+    - 192  
+  empty: # black
+    - 0
+    - 0
+    - 0  
+
+# Others
+anonymize: false
